@@ -1,15 +1,17 @@
-#########################################
-# Voy a mostrar menu en pantalla...
-########################################
-print("Ingrese la opcion del menu correspondiente: \n")
-print("1- Mostrar la lista")
-print("2- Borrar la lista")
-print("3- Actualizar la lista")
-print("4- Crear la lista")
+from src.modulos.funciones_001 import mostrar_menu, menu_switch_case, lista_productos
+from colorama import init, Fore, Style
+init()
 
-opcion_seleccionada = int(input("Ingrese opcion: "))
+opcion_seleccionada = 1000
 
-print("La opcion seleccionada fue: " , opcion_seleccionada)
-#########################################
-# Mostre menu en pantalla...
-########################################
+while opcion_seleccionada != 7:
+    mostrar_menu()
+    try:
+        opcion_seleccionada = int(input(Fore.GREEN + Style.BRIGHT + "Por favor, selecciona una opción (1-7): "  ))
+        menu_switch_case(opcion_seleccionada)
+    except ValueError:
+        print(Fore.RED + Style.BRIGHT + "Opción Inválida...")
+
+
+
+    
