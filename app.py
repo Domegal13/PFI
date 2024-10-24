@@ -1,4 +1,4 @@
-from src.modulos.funciones_001 import mostrar_menu, menu_switch_case, lista_productos
+from src.modulos.funciones import mostrar_menu, menu_switch_case
 from colorama import init, Fore, Style
 init()
 
