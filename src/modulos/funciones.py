@@ -3,8 +3,6 @@ import re
 from colorama import init, Fore, Back, Style
 init()
 
-# regex_alpha = r'^[A-Za-zÀ-ÿ\s]+$'
-# regex_nombre = r'^[a-zA-Z0-9\s\W]+$'
 regex_nombre = r'^[a-zA-Z][a-zA-Z0-9\s\W]*$'
 lista_productos = []
 lista_nombres_productos = []
@@ -25,7 +23,6 @@ def validar_nombre(nombre):
             return True
         else:
             return False
-
 
 # ########################## FUNCTION VALIDAR CANTIDAD ######################################################
 def validar_cantidad(cantidad):
@@ -75,14 +72,12 @@ def mostrar_un_producto():
     nombre_producto = nombre_producto.upper()
     if nombre_producto in lista_nombres_productos:
         index = lista_nombres_productos.index(nombre_producto)
-        print(Fore.LIGHTGREEN_EX + f"\n{nombre_producto} Stock: {lista_cant_prod[index]}" + Style.RESET_ALL)
+        print(Fore.LIGHTGREEN_EX + f"{nombre}" + Fore.YELLOW + " --Stock:" + Fore.GREEN +  f"  {lista_cant_prod[index]}" + Style.RESET_ALL) 
     else:
         print(Fore.RED + Style.BRIGHT + f"El producto {nombre_producto}, no existe...")
         
-
               
 # ##########################  OPCION 3 - Actualización: Modificar cantidad de stock del producto ###################################
-
 
 #! ############# MENU STOTK
 def mostrar_menu_stock():
@@ -185,22 +180,19 @@ def eliminar_producto():
     else:
         print(Fore.RED + Style.BRIGHT + f"Introduzca un valor correcto..." + Style.RESET_ALL)
 
-
 # ##########################  OPCION 5 - Listado: Listado completo de los productos en la base de datos ###################################
-
 
 def mostrar_productos():
     if len(lista_nombres_productos) > 0:
-        print(Fore.YELLOW + "\nLista de Productos")
+        lista_nombres_productos.sort()
+        print(Fore.YELLOW + "\nLista de Productos\n")
         for nombre in lista_nombres_productos:
             index = lista_nombres_productos.index(nombre)
-            # print(Fore.LIGHTGREEN_EX + f"{nombre}" + Fore.YELLOW + f" --Stock: {lista_cant_prod[index]}" + Style.RESET_ALL) 
             print(Fore.LIGHTGREEN_EX + f"{nombre}" + Fore.YELLOW + " --Stock:" + Fore.GREEN +  f"  {lista_cant_prod[index]}" + Style.RESET_ALL) 
            
     else:
         print(Fore.RED + Style.BRIGHT + "No hay productos para mostrar")  
         
-
 # ##########################  OPCION 6 - Reporte de bajo stock: Lista de productos con cantidad bajo mínimo ###################################
 
 def mostrar_menu_reporte_stock():
@@ -214,36 +206,39 @@ def reporte_stock(opc):
     if len(lista_nombres_productos) > 0:
         if opc == 1:
             lista_stock_alto = []
-            print(Fore.YELLOW + "\nLista de Productos")
+            print(Fore.YELLOW + "\nLista de Productos" + Fore.LIGHTBLUE_EX + "  -- Stock Alto\n")
             for nombre in lista_nombres_productos:
                 index = lista_nombres_productos.index(nombre)
                 if lista_cant_prod[index] > 10:
                     lista_stock_alto.append([nombre, lista_cant_prod[index]])
             if len(lista_stock_alto) > 0:
+                lista_stock_alto.sort()
                 for alto in lista_stock_alto:
                     print(Fore.LIGHTGREEN_EX + f"{alto[0]} Stock: {alto[1]}" + Fore.LIGHTBLUE_EX + "  -- Stock Alto" + Style.RESET_ALL)   
             else:
                 print(Fore.RED + Style.BRIGHT + "No hay productos para mostrar")    
         elif opc == 2:
             lista_stock_medio = []
-            print(Fore.YELLOW + "\nLista de Productos")
+            print(Fore.YELLOW + "\nLista de Productos" + Fore.YELLOW + "  -- Stock Medio\n")
             for nombre in lista_nombres_productos:
                 index = lista_nombres_productos.index(nombre)
                 if lista_cant_prod[index] > 5 and lista_cant_prod[index] <=10:
                     lista_stock_medio.append([nombre, lista_cant_prod[index]])
             if len(lista_stock_medio) > 0:
+                lista_stock_medio.sort()
                 for medio in lista_stock_medio:
                     print(Fore.LIGHTGREEN_EX + f"{medio[0]} Stock: {medio[1]}" + Fore.YELLOW + "  -- Stock Medio" + Style.RESET_ALL)   
             else:
                 print(Fore.RED + Style.BRIGHT + "No hay productos para mostrar")    
         elif opc == 3:
             lista_stock_bajo = []
-            print(Fore.YELLOW + "\nLista de Productos")
+            print(Fore.YELLOW + "\nLista de Productos" + Fore.RED + "  -- Stock Bajo\n")
             for nombre in lista_nombres_productos:
                 index = lista_nombres_productos.index(nombre)
                 if lista_cant_prod[index] <= 5:
                     lista_stock_bajo.append([nombre, lista_cant_prod[index]])
             if len(lista_stock_bajo) > 0:
+                lista_stock_bajo.sort()
                 for bajo in lista_stock_bajo:        
                     print(Fore.LIGHTGREEN_EX + f"{bajo[0]} Stock: {bajo[1]}" + Fore.RED + "  -- Stock Bajo" + Style.RESET_ALL)
             else:
@@ -259,7 +254,7 @@ def reporte_stock(opc):
 def mostrar_reporte_productos():
     opc = 0
     while opc != 4:
-        print(Fore.YELLOW + Style.BRIGHT + "\nMostrar Stock") 
+        print(Fore.YELLOW + Style.BRIGHT + "\nListas de Stock") 
         mostrar_menu_reporte_stock()
         try:
             opc = int(input(Fore.YELLOW + Style.BRIGHT + "\nSeleccione una opción 1-4: "))
