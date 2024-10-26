@@ -72,7 +72,7 @@ def mostrar_un_producto():
     nombre_producto = nombre_producto.upper()
     if nombre_producto in lista_nombres_productos:
         index = lista_nombres_productos.index(nombre_producto)
-        print(Fore.LIGHTGREEN_EX + f"{nombre}" + Fore.YELLOW + " --Stock:" + Fore.GREEN +  f"  {lista_cant_prod[index]}" + Style.RESET_ALL) 
+        print(Fore.LIGHTGREEN_EX + f"{nombre_producto}" + Fore.YELLOW + " --Stock:" + Fore.GREEN +  f"  {lista_cant_prod[index]}" + Style.RESET_ALL) 
     else:
         print(Fore.RED + Style.BRIGHT + f"El producto {nombre_producto}, no existe...")
         
